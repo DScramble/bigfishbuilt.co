@@ -24,14 +24,14 @@
             transform: translateX(-50%);
             cursor: pointer;
             z-index: 999;
-            transition: transform 1s ease-in-out; /* Slow down the animation */
+            transition: transform 0.5s ease-in-out; /* Smooth motion */
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <a href="https://bigfishbuilt.com/" id="patrik.JPGLink">
-            <img src="patrik.JPG" alt="patrik.JPG" id="patrik.JPG">
+        <a href="https://bigfishbuilt.com/" id="movingImageLink">
+            <img src="hyperpop-background.jpg" alt="Moving Image" id="movingImage">
         </a>
     </div>
     <script>
@@ -67,11 +67,12 @@
         // Add event listener
         document.getElementById('movingImage').addEventListener('click', handleImageClick);
 
-        // Move the image every 500 milliseconds
-        setInterval(moveImage, 500);
+        // Move the image every 2 seconds (faster)
+        setInterval(moveImage, 2000);
 
         // Move the image initially
         moveImage();
     </script>
 </body>
 </html>
+
