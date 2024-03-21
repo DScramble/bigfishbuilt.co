@@ -115,8 +115,8 @@
         // Add event listeners
         document.getElementById('movingImage').addEventListener('click', handleImageClick);
 
-        // Move the image every 1 second
-        setInterval(moveImage, 1000);
+        // Move the image every .2 seconds
+        setInterval(moveImage, 200);
 
         // Set the body background color to match the dominant colors of the image
         document.getElementById('movingImage').addEventListener('load', setBodyBackgroundColor);
