@@ -3,44 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Milady's Hyperpop</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-body {
-    font-family: Arial, sans-serif;
-    background-image: url('hyperpop-background.jpg');
-    background-size: cover; /* This ensures the image covers the entire background */
-    background-repeat: no-repeat; /* Prevents the image from repeating */
-    background-position: center; /* Centers the image */
-    color: #fff;
-}
+    <title>Moving Image</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
 
-    <header>
-        <h1>Milady's Hyperpop</h1>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <section class="terminal">
-            <div class="terminal-header">
-                <span class="close"></span>
-                <span class="minimize"></span>
-                <span class="expand"></span>
-            </div>
-            <div class="terminal-body">
-                <p>Welcome to Milady's Hyperpop Terminal</p>
-                <p>Type <span class="command">help</span> for a list of commands</p>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2024 Milady's Hyperpop. All rights reserved.</p>
-    </footer>
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        #movingImage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="#" id="movingImageLink">
+            <img src="patrik.JPG" alt="Moving Image" id="movingImage">
+        </a>
+    </div>
+    <script>
+        // Function to get a random number between min (inclusive) and max (exclusive)
+        function getRandomNumber(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        // Function to move the image to a random position
+        function moveImage() {
+            var container = document.querySelector('.container');
+            var movingImage = document.getElementById('movingImage');
+
+            var containerWidth = container.offsetWidth;
+            var containerHeight = container.offsetHeight;
+
+            var imageWidth = movingImage.offsetWidth;
+            var imageHeight = movingImage.offsetHeight;
+
+            var newX = getRandomNumber(0, containerWidth - imageWidth);
+            var newY = getRandomNumber(0, containerHeight - imageHeight);
+
+            movingImage.style.left = newX + 'px';
+            movingImage.style.top = newY + 'px';
+        }
+
+        // Function to handle image click
+        function handleImageClick() {
+            // Redirect to another page
+            window.location.href = 'https://example.com';
+        }
+
+        // Add event listeners
+        document.getElementById('movingImage').addEventListener('click', handleImageClick);
+
+        // Move the image every 3 seconds
+        setInterval(moveImage, 3000);
+
+        // Move the image initially
+        moveImage();
+    </script>
 </body>
 </html>
