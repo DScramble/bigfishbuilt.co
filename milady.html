@@ -12,7 +12,6 @@
         }
 
         body {
-            background-color: #000;
             color: #fff;
             display: flex;
             justify-content: center;
@@ -37,6 +36,34 @@
         <img src="patrik.jpg" alt="Moving Image" id="movingImage">
     </div>
     <script>
+        // Function to get the average color of an image
+        function getAverageColor(img) {
+            var canvas = document.createElement('canvas');
+            var ctx = canvas.getContext('2d');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img, 0, 0, img.width, img.height);
+            var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            var pixels = imageData.data;
+            var r = 0, g = 0, b = 0;
+            for (var i = 0; i < pixels.length; i += 4) {
+                r += pixels[i];
+                g += pixels[i + 1];
+                b += pixels[i + 2];
+            }
+            r = Math.floor(r / (pixels.length / 4));
+            g = Math.floor(g / (pixels.length / 4));
+            b = Math.floor(b / (pixels.length / 4));
+            return 'rgb(' + r + ',' + g + ',' + b + ')';
+        }
+
+        // Function to set the background color of the body to the average color of the image
+        function setBodyBackgroundColor() {
+            var movingImage = document.getElementById('movingImage');
+            var avgColor = getAverageColor(movingImage);
+            document.body.style.backgroundColor = avgColor;
+        }
+
         // Function to get a random number between min (inclusive) and max (exclusive)
         function getRandomNumber(min, max) {
             return Math.random() * (max - min) + min;
@@ -71,9 +98,11 @@
         // Move the image every 3 seconds
         setInterval(moveImage, 3000);
 
+        // Set the body background color to match the average color of the image
+        document.getElementById('movingImage').addEventListener('load', setBodyBackgroundColor);
+
         // Move the image initially
         moveImage();
     </script>
 </body>
 </html>
-
