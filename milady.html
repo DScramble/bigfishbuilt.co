@@ -20,6 +20,7 @@
             font-size: 4px;
             font-family: Arial, sans-serif;
             text-transform: uppercase;
+            overflow: hidden; /* Prevent scrolling */
         }
 
         #movingImage {
@@ -41,7 +42,7 @@
             return Math.random() * (max - min) + min;
         }
 
-        // Function to move the image to a random position
+        // Function to move the image to a random position within the visible area
         function moveImage() {
             var container = document.documentElement; // Entire document as the container
             var movingImage = document.getElementById('movingImage');
