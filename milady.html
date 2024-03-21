@@ -11,27 +11,29 @@
             padding: 0;
         }
 
-        .container {
-            position: relative;
-            width: 100%;
-            height: 100%;
+        body {
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 48px;
+            font-family: Arial, sans-serif;
+            text-transform: uppercase;
         }
 
         #movingImage {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
             cursor: pointer;
             z-index: 999;
+            position: relative;
+            max-width: 100%;
+            height: auto;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <a href="#" id="movingImageLink">
-            <img src="patrik.jpg" alt="Moving Image" id="movingImage">
-        </a>
+    <div id="movingImageLink">
+        <img src="patrik.jpg" alt="Moving Image" id="movingImage">
     </div>
     <script>
         // Function to get a random number between min (inclusive) and max (exclusive)
@@ -41,11 +43,11 @@
 
         // Function to move the image to a random position
         function moveImage() {
-            var container = document.querySelector('.container');
+            var container = document.documentElement; // Entire document as the container
             var movingImage = document.getElementById('movingImage');
 
-            var containerWidth = container.offsetWidth;
-            var containerHeight = container.offsetHeight;
+            var containerWidth = container.clientWidth;
+            var containerHeight = container.clientHeight;
 
             var imageWidth = movingImage.offsetWidth;
             var imageHeight = movingImage.offsetHeight;
