@@ -20,6 +20,7 @@
             font-family: Arial, sans-serif;
             text-transform: uppercase;
             overflow: hidden; /* Prevent scrolling */
+            animation: backgroundAnimation 10s infinite; /* Adjust the animation duration as needed */
         }
 
         #movingImage {
@@ -29,6 +30,18 @@
             max-width: 100%;
             height: auto;
         }
+
+        @keyframes backgroundAnimation {
+            0% {
+                background-color: rgb(255, 255, 255); /* Initial background color */
+            }
+            50% {
+                background-color: rgb(255, 255, 255); /* Middle color */
+            }
+            100% {
+                background-color: rgb(255, 255, 255); /* Final color */
+            }
+        }
     </style>
 </head>
 <body>
@@ -36,8 +49,8 @@
         <img src="patrik.jpg" alt="Moving Image" id="movingImage">
     </div>
     <script>
-        // Function to get the average color of an image
-        function getAverageColor(img) {
+        // Function to get the dominant colors of an image
+        function getDominantColors(img, numColors) {
             var canvas = document.createElement('canvas');
             var ctx = canvas.getContext('2d');
             canvas.width = img.width;
@@ -45,23 +58,30 @@
             ctx.drawImage(img, 0, 0, img.width, img.height);
             var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
             var pixels = imageData.data;
-            var r = 0, g = 0, b = 0;
+
+            var colorCount = {};
             for (var i = 0; i < pixels.length; i += 4) {
-                r += pixels[i];
-                g += pixels[i + 1];
-                b += pixels[i + 2];
+                var rgb = [pixels[i], pixels[i + 1], pixels[i + 2]];
+                var key = rgb.join(",");
+                if (colorCount[key]) {
+                    colorCount[key]++;
+                } else {
+                    colorCount[key] = 1;
+                }
             }
-            r = Math.floor(r / (pixels.length / 4));
-            g = Math.floor(g / (pixels.length / 4));
-            b = Math.floor(b / (pixels.length / 4));
-            return 'rgb(' + r + ',' + g + ',' + b + ')';
+
+            var sortedColors = Object.keys(colorCount).sort(function(a, b) {
+                return colorCount[b] - colorCount[a];
+            });
+
+            return sortedColors.slice(0, numColors);
         }
 
-        // Function to set the background color of the body to the average color of the image
+        // Function to set the background color of the body to the dominant colors of the image
         function setBodyBackgroundColor() {
             var movingImage = document.getElementById('movingImage');
-            var avgColor = getAverageColor(movingImage);
-            document.body.style.backgroundColor = avgColor;
+            var dominantColors = getDominantColors(movingImage, 3); // Get 3 dominant colors
+            document.body.style.background = 'linear-gradient(to right, ' + dominantColors.join(",") + ')';
         }
 
         // Function to get a random number between min (inclusive) and max (exclusive)
@@ -98,7 +118,7 @@
         // Move the image every 1 second
         setInterval(moveImage, 1000);
 
-        // Set the body background color to match the average color of the image
+        // Set the body background color to match the dominant colors of the image
         document.getElementById('movingImage').addEventListener('load', setBodyBackgroundColor);
 
         // Move the image initially
@@ -106,3 +126,4 @@
     </script>
 </body>
 </html>
+
