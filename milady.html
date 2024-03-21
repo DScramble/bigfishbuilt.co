@@ -26,7 +26,7 @@
         #movingImage {
             cursor: pointer;
             z-index: 999;
-            position: relative;
+            position: absolute;
             max-width: 100%;
             height: auto;
         }
@@ -44,17 +44,16 @@
 
         // Function to move the image to a random position within the visible area
         function moveImage() {
-            var container = document.documentElement; // Entire document as the container
             var movingImage = document.getElementById('movingImage');
 
-            var containerWidth = container.clientWidth;
-            var containerHeight = container.clientHeight;
+            var windowWidth = window.innerWidth;
+            var windowHeight = window.innerHeight;
 
             var imageWidth = movingImage.offsetWidth;
             var imageHeight = movingImage.offsetHeight;
 
-            var newX = getRandomNumber(0, containerWidth - imageWidth);
-            var newY = getRandomNumber(0, containerHeight - imageHeight);
+            var newX = getRandomNumber(0, windowWidth - imageWidth);
+            var newY = getRandomNumber(0, windowHeight - imageHeight);
 
             movingImage.style.left = newX + 'px';
             movingImage.style.top = newY + 'px';
@@ -77,3 +76,4 @@
     </script>
 </body>
 </html>
+
