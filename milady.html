@@ -19,19 +19,18 @@
 
         #movingImage {
             position: absolute;
-            bottom: 20%; /* Lower on the screen */
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translate(-50%, -50%);
             cursor: pointer;
             z-index: 999;
-            transition: transform 0.5s ease-in-out; /* Smooth motion */
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <a href="https://bigfishbuilt.com/" id="movingImageLink">
-            <img src="patrik.JPG" alt="Moving Image" id="movingImage">
+        <a href="#" id="movingImageLink">
+            <img src="patrik.jpg" alt="Moving Image" id="movingImage">
         </a>
     </div>
     <script>
@@ -52,7 +51,7 @@
             var imageHeight = movingImage.offsetHeight;
 
             var newX = getRandomNumber(0, containerWidth - imageWidth);
-            var newY = getRandomNumber(containerHeight * 0.4, containerHeight - imageHeight * 1.2); // Lower on the screen
+            var newY = getRandomNumber(0, containerHeight - imageHeight);
 
             movingImage.style.left = newX + 'px';
             movingImage.style.top = newY + 'px';
@@ -61,18 +60,17 @@
         // Function to handle image click
         function handleImageClick() {
             // Redirect to another page
-            window.location.href = 'https://bigfishbuilt.com/';
+            window.location.href = 'https://example.com';
         }
 
-        // Add event listener
+        // Add event listeners
         document.getElementById('movingImage').addEventListener('click', handleImageClick);
 
-        // Move the image every 2 seconds (faster)
-        setInterval(moveImage, 2000);
+        // Move the image every 3 seconds
+        setInterval(moveImage, 3000);
 
         // Move the image initially
         moveImage();
     </script>
 </body>
 </html>
-
